@@ -1,28 +1,44 @@
 package com.labs.cg4thlabwork;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModelLoader {
-    public static Model3D createCube(double size) {
-        double half = size / 2;
 
-        // Вершины куба
-        Vector3D[] vertices = {
-                new Vector3D(-half, -half, -half),
-                new Vector3D(half, -half, -half),
-                new Vector3D(half, half, -half),
-                new Vector3D(-half, half, -half),
-                new Vector3D(-half, -half, half),
-                new Vector3D(half, -half, half),
-                new Vector3D(half, half, half),
-                new Vector3D(-half, half, half)
-        };
+    public static Model3D loadCubeFromFile(String fileName) throws IOException {
+        List<Vector3D> vertices = new ArrayList<>();
+        List<int[]> edges = new ArrayList<>();
 
-        // Ребра куба (индексы вершин)
-        int[][] edges = {
-                {0, 1}, {1, 2}, {2, 3}, {3, 0}, // Задняя грань
-                {4, 5}, {5, 6}, {6, 7}, {7, 4}, // Передняя грань
-                {0, 4}, {1, 5}, {2, 6}, {3, 7}  // Соединения между передней и задней гранью
-        };
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
 
-        return new Model3D(vertices, edges);
+                if (line.startsWith("v")) {
+                    // Parse vertex
+                    String[] parts = line.split("\\s+");
+                    double x = Double.parseDouble(parts[1]);
+                    double y = Double.parseDouble(parts[2]);
+                    double z = Double.parseDouble(parts[3]);
+                    vertices.add(new Vector3D(x, y, z));
+                } else if (line.startsWith("e")) {
+                    // Parse edge
+                    String[] parts = line.split("\\s+");
+                    int start = Integer.parseInt(parts[1]);
+                    int end = Integer.parseInt(parts[2]);
+                    edges.add(new int[] { start, end });
+                }
+            }
+        }
+
+        // Convert the lists to arrays
+        Vector3D[] vertexArray = vertices.toArray(new Vector3D[0]);
+        int[][] edgeArray = edges.toArray(new int[0][]);
+
+        return new Model3D(vertexArray, edgeArray);
     }
+
 }

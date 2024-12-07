@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8728dbca-bd96-4d54-9b23-5bcd40c99a78" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/models/model4.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/AffineTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/AffineTransform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deleted/AffineTransform.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deleted/Camera3D.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deleted/Matrix.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deleted/Model3D.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deleted/ModelLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deleted/Render3D.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deleted/Vector3D.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/ModelLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/ModelLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/Render3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/Render3D.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +57,7 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "5832199b",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true"
   }
 }]]></component>

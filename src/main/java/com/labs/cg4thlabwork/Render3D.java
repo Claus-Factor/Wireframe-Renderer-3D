@@ -14,7 +14,7 @@ public class Render3D {
 
     public void render(Model3D model) {
         gc.setStroke(Color.BLUE);
-        gc.setLineWidth(1);
+        gc.setLineWidth(2);
 
         Vector3D[] vertices = model.getVertices();
         int[][] edges = model.getEdges();
@@ -24,10 +24,10 @@ public class Render3D {
             Vector3D v2 = camera.project(vertices[edge[1]]);
 
             // Преобразование координат в экранные
-            double screenX1 = 400 + v1.x; // Центрируем по X
-            double screenY1 = 300 - v1.y; // Инвертируем Y
-            double screenX2 = 400 + v2.x;
-            double screenY2 = 300 - v2.y;
+            double screenX1 = 600 + v1.x; // Центрируем по X
+            double screenY1 = 400 - v1.y; // Инвертируем Y
+            double screenX2 = 600 + v2.x;
+            double screenY2 = 400 - v2.y;
 
             gc.strokeLine(screenX1, screenY1, screenX2, screenY2);
         }

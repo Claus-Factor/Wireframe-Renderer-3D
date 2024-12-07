@@ -5,44 +5,82 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
-    private Model3D cube;
+    private Model3D currentModel;
     private Camera3D camera;
     private Render3D renderer;
     private AffineTransform transform;
     private Canvas canvas;
+    private int modelType;
+    private int prevModelType;
 
     @Override
-    public void start(Stage primaryStage) {
-        // Инициализация модели, камеры и аффинного преобразования
-        cube = ModelLoader.createCube(200); // Куб с размером 200
+    public void start(Stage primaryStage) throws IOException {
+        // Инициализация камеры и преобразования
         camera = new Camera3D(new Vector3D(0, 0, -500), 500); // Камера
         transform = new AffineTransform();
 
         // Создаем Canvas для рисования
-        canvas = new Canvas(800, 600);
+        canvas = new Canvas(1200, 800);
         renderer = new Render3D(canvas.getGraphicsContext2D(), camera);
 
-        // Кнопки интерфейса для управления преобразованиями
+        // Выбор модели
+        ComboBox<String> modelSelector = new ComboBox<>();
+
+        // Задаём количество загружаемых моделей
+        int amountOfModels = 4;
+        String[] allModels = new String[amountOfModels];
+        for (int i = 0; i < amountOfModels; i++) {
+            allModels[i] = "Model " + (i+1);
+        }
+        modelSelector.getItems().addAll(allModels);
+        modelSelector.setValue(allModels[0]); // По умолчанию куб
+
+
+
+        modelSelector.setOnAction(event -> {
+            modelType = Integer.parseInt(String.valueOf((modelSelector.getValue().charAt(modelSelector.getValue().length() - 1))));
+            try {
+                currentModel = ModelLoader.loadCubeFromFile("./models/model" + modelType + ".txt");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
+            try {
+                render();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        // Панель управления
         HBox controlPanel = createControlPanel();
 
-        // Обновляем сцену
+        // Добавляем элементы в интерфейс
         BorderPane root = new BorderPane();
+        root.setTop(modelSelector);
         root.setCenter(canvas);
         root.setBottom(controlPanel);
 
         // Настройка окна
-        primaryStage.setTitle("3D Wireframe Renderer with Mouse Controls");
-        primaryStage.setScene(new Scene(root, 800, 650));
+        primaryStage.setTitle("3D Wireframe Renderer with Multiple Models");
+        primaryStage.setScene(new Scene(root, 1300, 850));
         primaryStage.show();
 
-        // Первая отрисовка
+        // Устанавливаем начальную модель (куб)
+        modelType = 1;
+        prevModelType = 1;
+        currentModel = ModelLoader.loadCubeFromFile("./models/model1.txt");
         render();
     }
 
@@ -90,16 +128,31 @@ public class Main extends Application {
                 // Правая кнопка мыши
                 rightClickAction.run();
             }
-            render();
+            try {
+                render();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         return button;
     }
 
-    private void render() {
+    private void render() throws IOException {
         // Применяем преобразование к модели
-        Model3D transformedCube = ModelLoader.createCube(200); // Создаем новый куб
-        transformedCube.applyTransform(transform);
+
+
+        currentModel = ModelLoader.loadCubeFromFile("./models/model" + modelType + ".txt");
+
+        currentModel.applyTransform(transform);
+
+        if (modelType != prevModelType) {
+            transform = new AffineTransform();
+
+            prevModelType = modelType;
+            currentModel = ModelLoader.loadCubeFromFile("./models/model" + modelType + ".txt");
+
+        }
 
         // Очищаем экран
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -110,7 +163,7 @@ public class Main extends Application {
         drawAxes(gc);
 
         // Рендерим преобразованную модель
-        renderer.render(transformedCube);
+        renderer.render(currentModel);
     }
 
     private void drawAxes(GraphicsContext gc) {
@@ -121,8 +174,8 @@ public class Main extends Application {
         // Оси X, Y и Z
         Vector3D origin = new Vector3D(0, 0, 0);
         Vector3D xAxis = new Vector3D(600, 0, 0); // Красная ось X
-        Vector3D yAxis = new Vector3D(0, 300, 0); // Зеленая ось Y
-        Vector3D zAxis = new Vector3D(0, 0, 300); // Синяя ось Z
+        Vector3D yAxis = new Vector3D(0, 400, 0); // Зеленая ось Y
+        Vector3D zAxis = new Vector3D(0, 0, 400); // Синяя ось Z
 
         // Проецируем точки на экран через камеру
         Vector3D screenOrigin = camera.project(origin);
@@ -146,21 +199,6 @@ public class Main extends Application {
         gc.setStroke(Color.BLUE);
         gc.strokeLine(screenX1, screenY1, centerX + screenZ.x, centerY - screenZ.y);
     }
-
-
-    /*private void render() {
-        // Применяем преобразование к модели
-        Model3D transformedCube = ModelLoader.createCube(200); // Создаем новый куб
-        transformedCube.applyTransform(transform);
-
-        // Очищаем экран
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        // Рендерим преобразованную модель
-        renderer.render(transformedCube);
-    }*/
 
     public static void main(String[] args) {
         launch(args);
