@@ -1,6 +1,6 @@
 ## 3D Wireframe Renderer
 
-[//]: # (![]&#40;figures.png&#41;)
+![](figures.png)
 
 ### Описание
 
