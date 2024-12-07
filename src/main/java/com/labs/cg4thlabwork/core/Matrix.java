@@ -1,4 +1,4 @@
-package com.labs.cg4thlabwork;
+package com.labs.cg4thlabwork.core;
 
 public class Matrix {
     public final double[][] data; // ПОТОМ ЗАМЕНИ НА ПРИВАТНОЕ ПОЛЕ!!!

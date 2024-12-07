@@ -1,4 +1,4 @@
-package com.labs.cg4thlabwork;
+package com.labs.cg4thlabwork.core;
 
 public class Vector3D {
     public double x, y, z;
@@ -31,5 +31,10 @@ public class Vector3D {
                 this.z * other.x - this.x * other.z,
                 this.x * other.y - this.y * other.x
         );
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(" + (float)x + ", " + (float)y + ", " + (float)z + ")");
     }
 }

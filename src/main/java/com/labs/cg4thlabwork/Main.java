@@ -1,14 +1,19 @@
 package com.labs.cg4thlabwork;
 
+import com.labs.cg4thlabwork.core.*;
+import com.labs.cg4thlabwork.render.*;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -30,21 +35,20 @@ public class Main extends Application {
         transform = new AffineTransform();
 
         // Создаем Canvas для рисования
-        canvas = new Canvas(1200, 800);
+        canvas = new Canvas(1200, 750);
         renderer = new Render3D(canvas.getGraphicsContext2D(), camera);
 
         // Выбор модели
         ComboBox<String> modelSelector = new ComboBox<>();
 
         // Задаём количество загружаемых моделей
-        int amountOfModels = 4;
+        int amountOfModels = 6;
         String[] allModels = new String[amountOfModels];
         for (int i = 0; i < amountOfModels; i++) {
             allModels[i] = "Model " + (i+1);
         }
         modelSelector.getItems().addAll(allModels);
         modelSelector.setValue(allModels[0]); // По умолчанию куб
-
 
 
         modelSelector.setOnAction(event -> {
@@ -73,8 +77,8 @@ public class Main extends Application {
         root.setBottom(controlPanel);
 
         // Настройка окна
-        primaryStage.setTitle("3D Wireframe Renderer with Multiple Models");
-        primaryStage.setScene(new Scene(root, 1300, 850));
+        primaryStage.setTitle("3D Wireframe Renderer");
+        primaryStage.setScene(new Scene(root, 1250, 900));
         primaryStage.show();
 
         // Устанавливаем начальную модель (куб)
@@ -85,36 +89,49 @@ public class Main extends Application {
     }
 
     private HBox createControlPanel() {
-        HBox controlPanel = new HBox(13);
+        HBox controlPanel = new HBox(20); // Основная панель управления
 
-        // Кнопки для перемещения
-        Button translateX = createButton("Translate X", () -> transform.translate(50, 0, 0), () -> transform.translate(-50, 0, 0));
-        Button translateY = createButton("Translate Y", () -> transform.translate(0, 50, 0), () -> transform.translate(0, -50, 0));
-        Button translateZ = createButton("Translate Z", () -> transform.translate(0, 0, 50), () -> transform.translate(0, 0, -50));
-
-        // Кнопки для масштабирования
-        Button scale = createButton("Scale", () -> transform.scale(1.2, 1.2, 1.2), () -> transform.scale(0.8, 0.8, 0.8));
-
-        // Кнопки для вращения
-        Button rotateX = createButton("Rotate X", () -> transform.rotateX(Math.toRadians(15)), () -> transform.rotateX(-Math.toRadians(15)));
-        Button rotateY = createButton("Rotate Y", () -> transform.rotateY(Math.toRadians(15)), () -> transform.rotateY(-Math.toRadians(15)));
-        Button rotateZ = createButton("Rotate Z", () -> transform.rotateZ(Math.toRadians(15)), () -> transform.rotateZ(-Math.toRadians(15)));
-
-        // Кнопки отражения
-        Button mapOxy = createButton("MapOxy", () -> transform.mapOxy(), () -> transform.mapOxy());
-        Button mapOyz = createButton("MapOyz", () -> transform.mapOyz(), () -> transform.mapOyz());
-        Button mapOxz = createButton("MapOxz", () -> transform.mapOxz(), () -> transform.mapOxz());
-
-        // Добавляем кнопки в панель
-        controlPanel.getChildren().addAll(
-                translateX, translateY, translateZ,
-                scale,
-                rotateX, rotateY, rotateZ,
-                mapOxy, mapOyz, mapOxz
+        // Секция Translate
+        VBox translateSection = new VBox(10);
+        translateSection.getChildren().addAll(
+                new Label("  Translating"),
+                createButton("Translate X", () -> transform.translate(50, 0, 0), () -> transform.translate(-50, 0, 0)),
+                createButton("Translate Y", () -> transform.translate(0, 50, 0), () -> transform.translate(0, -50, 0)),
+                createButton("Translate Z", () -> transform.translate(0, 0, 50), () -> transform.translate(0, 0, -50))
         );
+
+        // Секция Scaling
+        VBox scalingSection = new VBox(10);
+        scalingSection.getChildren().addAll(
+                new Label("Scaling"),
+                createButton("Scale", () -> transform.scale(1.2, 1.2, 1.2), () -> transform.scale(0.8, 0.8, 0.8))
+        );
+
+        // Секция Rotating
+        VBox rotatingSection = new VBox(10);
+        rotatingSection.getChildren().addAll(
+                new Label("Rotating"),
+                createButton("Rotate X", () -> transform.rotateX(Math.toRadians(15)), () -> transform.rotateX(-Math.toRadians(15))),
+                createButton("Rotate Y", () -> transform.rotateY(Math.toRadians(15)), () -> transform.rotateY(-Math.toRadians(15))),
+                createButton("Rotate Z", () -> transform.rotateZ(Math.toRadians(15)), () -> transform.rotateZ(-Math.toRadians(15)))
+        );
+
+        // Секция Mapping
+        VBox mappingSection = new VBox(10);
+        mappingSection.getChildren().addAll(
+                new Label("Mapping"),
+                createButton("Map Oxy", () -> transform.mapOxy(), () -> transform.mapOxy()),
+                createButton("Map Oyz", () -> transform.mapOyz(), () -> transform.mapOyz()),
+                createButton("Map Oxz", () -> transform.mapOxz(), () -> transform.mapOxz())
+        );
+
+        // Добавляем секции в основную панель
+        controlPanel.getChildren().addAll(translateSection, scalingSection, rotatingSection, mappingSection);
 
         return controlPanel;
     }
+
+
 
     private Button createButton(String label, Runnable leftClickAction, Runnable rightClickAction) {
         Button button = new Button(label);
@@ -160,45 +177,12 @@ public class Main extends Application {
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         // Рисуем координатные оси
-        drawAxes(gc);
+        DrawAxes.drawAxes(gc, camera, canvas);
 
         // Рендерим преобразованную модель
         renderer.render(currentModel);
     }
 
-    private void drawAxes(GraphicsContext gc) {
-        // Центр экрана
-        double centerX = canvas.getWidth() / 2;
-        double centerY = canvas.getHeight() / 2;
-
-        // Оси X, Y и Z
-        Vector3D origin = new Vector3D(0, 0, 0);
-        Vector3D xAxis = new Vector3D(600, 0, 0); // Красная ось X
-        Vector3D yAxis = new Vector3D(0, 400, 0); // Зеленая ось Y
-        Vector3D zAxis = new Vector3D(0, 0, 400); // Синяя ось Z
-
-        // Проецируем точки на экран через камеру
-        Vector3D screenOrigin = camera.project(origin);
-        Vector3D screenX = camera.project(xAxis);
-        Vector3D screenY = camera.project(yAxis);
-        Vector3D screenZ = camera.project(zAxis);
-
-        // Перемещение координат в экранные координаты
-        double screenX1 = centerX + screenOrigin.x;
-        double screenY1 = centerY - screenOrigin.y;
-
-        // Ось X (красная)
-        gc.setStroke(Color.RED);
-        gc.strokeLine(screenX1, screenY1, centerX + screenX.x, centerY - screenX.y);
-
-        // Ось Y (зеленая)
-        gc.setStroke(Color.GREEN);
-        gc.strokeLine(screenX1, screenY1, centerX + screenY.x, centerY - screenY.y);
-
-        // Ось Z (синяя)
-        gc.setStroke(Color.BLUE);
-        gc.strokeLine(screenX1, screenY1, centerX + screenZ.x, centerY - screenZ.y);
-    }
 
     public static void main(String[] args) {
         launch(args);

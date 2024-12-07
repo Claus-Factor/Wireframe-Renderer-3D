@@ -1,4 +1,6 @@
-package com.labs.cg4thlabwork;
+package com.labs.cg4thlabwork.render;
+
+import com.labs.cg4thlabwork.core.Vector3D;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
