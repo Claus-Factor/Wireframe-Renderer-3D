@@ -35,6 +35,6 @@ public class Vector3D {
 
     @Override
     public String toString() {
-        return String.format("(" + (float)x + ", " + (float)y + ", " + (float)z + ")");
+        return String.format("(%.2f; %.2f; %.2f)", x, y, z);
     }
 }

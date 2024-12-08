@@ -4,16 +4,16 @@ import com.labs.cg4thlabwork.core.Vector3D;
 
 public class Camera3D {
     private Vector3D position;
-    private double focalLength;
 
-    public Camera3D(Vector3D position, double focalLength) {
+    public Camera3D(Vector3D position) {
         this.position = position;
-        this.focalLength = focalLength;
     }
 
     public Vector3D project(Vector3D vertex) {
-        double x = (vertex.x - position.x) * focalLength / (vertex.z - position.z);
-        double y = (vertex.y - position.y) * focalLength / (vertex.z - position.z);
+        double focalLength = Math.abs(position.z);
+
+        double x = (vertex.x - position.x) * focalLength / Math.abs(position.z - vertex.z);
+        double y = (vertex.y - position.y) * focalLength / Math.abs(position.z - vertex.z);
         return new Vector3D(x, y, 0);
     }
 }

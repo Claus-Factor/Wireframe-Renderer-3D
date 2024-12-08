@@ -55,8 +55,8 @@ public class AffineTransform {
 
         Matrix rotation = Matrix.identity(4);
         rotation.data[0][0] = cos;
-        rotation.data[0][1] = sin;
-        rotation.data[1][0] = -sin;
+        rotation.data[0][1] = -sin;
+        rotation.data[1][0] = sin;
         rotation.data[1][1] = cos;
 
         transform = rotation.multiply(transform);

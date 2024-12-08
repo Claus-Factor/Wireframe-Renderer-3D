@@ -14,7 +14,7 @@ public class Render3D {
     }
 
     public void render(Model3D model) {
-        gc.setStroke(Color.BLUE);
+        gc.setStroke(Color.CYAN);
         gc.setLineWidth(2);
 
         Vector3D[] vertices = model.getVertices();

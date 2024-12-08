@@ -5,23 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8728dbca-bd96-4d54-9b23-5bcd40c99a78" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/model5.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/model6.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/DrawAxes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/model1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/models/model1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/model2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/models/model2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/model3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/models/model3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/model4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/models/model4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/AffineTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/core/AffineTransform.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/Camera3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/render/Camera3D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/DrawAxes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/extensions/DrawAxes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/core/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/Model3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/render/Model3D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/ModelLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/render/ModelLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/Render3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/render/Render3D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/Vector3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/core/Vector3D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/core/AffineTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/core/AffineTransform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/core/Vector3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/core/Vector3D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/render/Camera3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/render/Camera3D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/render/Render3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/labs/cg4thlabwork/render/Render3D.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

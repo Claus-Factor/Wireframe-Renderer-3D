@@ -1,6 +1,7 @@
 package com.labs.cg4thlabwork;
 
 import com.labs.cg4thlabwork.core.*;
+import com.labs.cg4thlabwork.extensions.DrawAxes;
 import com.labs.cg4thlabwork.render.*;
 
 import javafx.application.Application;
@@ -31,7 +32,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Инициализация камеры и преобразования
-        camera = new Camera3D(new Vector3D(0, 0, -500), 500); // Камера
+        camera = new Camera3D(new Vector3D(20, 30, 550)); // Камера
         transform = new AffineTransform();
 
         // Создаем Canvas для рисования
@@ -94,7 +95,7 @@ public class Main extends Application {
         // Секция Translate
         VBox translateSection = new VBox(10);
         translateSection.getChildren().addAll(
-                new Label("  Translating"),
+                new Label("  Translation"),
                 createButton("Translate X", () -> transform.translate(50, 0, 0), () -> transform.translate(-50, 0, 0)),
                 createButton("Translate Y", () -> transform.translate(0, 50, 0), () -> transform.translate(0, -50, 0)),
                 createButton("Translate Z", () -> transform.translate(0, 0, 50), () -> transform.translate(0, 0, -50))
@@ -173,7 +174,7 @@ public class Main extends Application {
 
         // Очищаем экран
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.WHITE);
+        gc.setFill(Color.BLACK);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         // Рисуем координатные оси

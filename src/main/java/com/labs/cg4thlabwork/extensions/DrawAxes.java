@@ -1,4 +1,4 @@
-package com.labs.cg4thlabwork;
+package com.labs.cg4thlabwork.extensions;
 
 import com.labs.cg4thlabwork.core.Vector3D;
 import com.labs.cg4thlabwork.render.Camera3D;
@@ -14,12 +14,12 @@ public class DrawAxes {
 
         // Оси X, Y и Z (положительные и отрицательные направления)
         Vector3D origin = new Vector3D(0, 0, 0);
-        Vector3D xAxisPositive = new Vector3D(600, 0, 0);  // Положительное направление оси X
+        Vector3D xAxisPositive = new Vector3D(700, 0, 0);  // Положительное направление оси X
         Vector3D xAxisNegative = new Vector3D(-600, 0, 0); // Отрицательное направление оси X
-        Vector3D yAxisPositive = new Vector3D(0, 375, 0);  // Положительное направление оси Y
+        Vector3D yAxisPositive = new Vector3D(0, 450, 0);  // Положительное направление оси Y
         Vector3D yAxisNegative = new Vector3D(0, -375, 0); // Отрицательное направление оси Y
-        Vector3D zAxisPositive = new Vector3D(0, 0, 375);  // Положительное направление оси Z
-        Vector3D zAxisNegative = new Vector3D(0, 0, -375); // Отрицательное направление оси Z
+        Vector3D zAxisPositive = new Vector3D(0, 0, 510);  // Положительное направление оси Z
+        Vector3D zAxisNegative = new Vector3D(0, 0, 510); // Отрицательное направление оси Z
 
         // Проецируем точки на экран через камеру
         Vector3D screenOrigin = camera.project(origin);
@@ -40,7 +40,7 @@ public class DrawAxes {
         gc.strokeLine(screenX1, screenY1, centerX + screenXPos.x, centerY - screenXPos.y); // Ось X+
         gc.setStroke(Color.GREEN);
         gc.strokeLine(screenX1, screenY1, centerX + screenYPos.x, centerY - screenYPos.y); // Ось Y+
-        gc.setStroke(Color.BLUE);
+        gc.setStroke(Color.PURPLE);
         gc.strokeLine(screenX1, screenY1, centerX + screenZPos.x, centerY - screenZPos.y); // Ось Z+
 
         // Рисуем отрицательные оси (пунктирные линии)
@@ -49,23 +49,23 @@ public class DrawAxes {
         gc.strokeLine(screenX1, screenY1, centerX + screenXNeg.x, centerY - screenXNeg.y); // Ось X-
         gc.setStroke(Color.GREEN);
         gc.strokeLine(screenX1, screenY1, centerX + screenYNeg.x, centerY - screenYNeg.y); // Ось Y-
-        gc.setStroke(Color.BLUE);
+        gc.setStroke(Color.PURPLE);
         gc.strokeLine(screenX1, screenY1, centerX + screenZNeg.x, centerY - screenZNeg.y); // Ось Z-
 
         // Убираем пунктирный стиль
         gc.setLineDashes();
 
-        // Добавляем разметку вдоль осей с шагом 50
+        // Добавляем разметку вдоль осей с шагом 100
         drawAxisMarks(gc, camera, centerX, centerY, 600, 100, Color.RED, 'X'); // Для оси X
         drawAxisMarks(gc, camera, centerX, centerY, 375, 100, Color.GREEN, 'Y'); // Для оси Y
-        drawAxisMarks(gc, camera, centerX, centerY, 375, 100, Color.BLUE, 'Z'); // Для оси Z
+        drawAxisMarks(gc, camera, centerX, centerY, 510, 100, Color.PURPLE, 'Z'); // Для оси Z
     }
 
     private static void drawAxisMarks(GraphicsContext gc, Camera3D camera, double centerX, double centerY,
                                       double axisLength, double step, Color color, char axis) {
         // Устанавливаем цвет разметки
         gc.setStroke(color);
-        gc.setFill(Color.BLACK); // Цвет текста меток
+        gc.setFill(Color.WHITE); // Цвет текста меток
 
         // Проходим по положительным и отрицательным значениям оси
         for (double i = step; i <= axisLength; i += step) {

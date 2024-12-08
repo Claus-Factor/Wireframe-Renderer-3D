@@ -9,4 +9,6 @@ module com.labs.cg4thlabwork {
     opens com.labs.cg4thlabwork.core to javafx.fxml;
     exports com.labs.cg4thlabwork.render;
     opens com.labs.cg4thlabwork.render to javafx.fxml;
+    exports com.labs.cg4thlabwork.extensions;
+    opens com.labs.cg4thlabwork.extensions to javafx.fxml;
 }
